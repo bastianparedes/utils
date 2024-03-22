@@ -1,5 +1,3 @@
-
-
 // Al objeto T se le quitan las key cuyo valor no sea el entregado
 type FilterKeysByType<T, U> = {
   [K in keyof T as T[K] extends U ? K : never]: T[K];
@@ -56,3 +54,10 @@ type KnownKeysOnly<T, U> = {
 
 // Indica si el tipo entregado es un any o no
 type IsAny<T> = 0 extends (1 & T) ? true : false;
+
+// Determina si un array contiene un elemento o no
+type Includes<T extends readonly any[], U> = T extends [infer First, ...infer Rest]
+  ? Equal<First, U> extends true
+    ? true
+    : Includes<Rest, U>
+  : false;
